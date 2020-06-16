@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ champion.name }}
+{% endblock %}
+
+{% block body %}
+
+    {% set lienImg = 'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/' %}
+    <div class="container">
+        <h1 class="mt-4">{{ champion.name }} <small class="text-muted"><u>"{{ champion.title }}"</u></small></h1>
+
+        <img src="{{ lienImg ~ champion.id ~ '_0.jpg'}}" class="img-fluid rounded mt-4" alt="Responsive image">
+    </div>
+
+    {% for i in 0..champion.skins|length-1 %}
+{#        {{ dump(champion.skins[i]) }}#}
+{#        {% for carac in champion.skins[i] %}#}
+{#            {{ carac }}#}
+{#        {% endfor %}#}
+    {% endfor %}
+    {%  set imgSkin ='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'  %}
+
+    <div class="container mb-2">
+        <div class="row ">
+            <div class="col-8">
+                <h2 class="mt-4">Skins</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        {% for key in champion.skins[0]|keys %}
+                            <th scope="col">{{ key }}</th>
+                        {% endfor %}
+                        <th scope="col">Image</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in 0..champion.skins|length-1 %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ champion.skins[i].id }}</td>
+                            <td>{{ champion.skins[i].num }}</td>
+                            <td>{{ champion.skins[i].name }}</td>
+                            <td>{{ champion.skins[i].chromas ? 'Oui' : 'Non' }}</td>
+                            <td><img src="{{ imgSkin~champion.name~'_'~champion.skins[i].num~'.jpg' }}" alt="..." class="img-thumbnail rounded" style="height: 200px; width: 300px;"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

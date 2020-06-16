@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    {% set lienImg = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' %}
+    <div class="container mb-2">
+        <h1 class="mt-2">Listes des champions de League of Legends</h1>
+        <div id="data-container">
+            <div class="row">
+                {% for champion in champions  %}
+                    <div class="col-md-4 mt-4" id="demo">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ lienImg ~ champion.id ~ '_0.jpg' }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ path('api_champion_show', { 'id' : champion.id }) }}">{{ champion.name }}</a></h5>
+                                <p class="card-text">{{ champion.blurb ? champion.blurb|slice(0, 150)~'...' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+            <div id="pagination-container"></div>
+    </div>
+{% endblock %}
